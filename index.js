@@ -281,6 +281,117 @@ async function starts() {
                     reply(' *Ketik perintah 1 untuk mengaktifkan, 0 untuk menonaktifkan* \n *Contoh: ${prefix}leveling 1*')
                 }
                break
+               case 'cr1':
+            // licensed by aex-bot -> namabotnte
+            //client2.sendText(from, `${split}\n\n${taged}`)
+if (!isGroup) return reply(mess.only.group)
+if (!isOwner) return reply(mess.only.owner)
+var split = args.join(' ').replace(/@|\d/gi, '').split('|')
+var taged = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
+            const target = {
+                contextInfo: {
+                    participant: taged,
+                    quotedMessage: {
+                        extendedTextMessage: {
+                            text: split[0]
+                        }
+                    }
+                }
+            }
+            //client2.reply(from, JSON.stringify(options, null, '\t'))
+     client.sendMessage(from, `${split[1]}`, MessageType.text, target)
+        break
+     case 'bisakah':
+					bisakah = body.slice(1)
+					const bisa =['Bisa','Tidak Bisa','Coba Ulangi']
+					const keh = bisa[Math.floor(Math.random() * bisa.length)]
+					client.sendMessage(from, 'Pertanyaan : *'+bisakah+'*\n\nJawaban : '+ keh, text, { quoted: mek })
+					break
+				case 'kapankah':
+					kapankah = body.slice(1)
+					const kapan =['Besok','Lusa','Tadi','4 Hari Lagi','5 Hari Lagi','6 Hari Lagi','1 Minggu Lagi','2 Minggu Lagi','3 Minggu Lagi','1 Bulan Lagi','2 Bulan Lagi','3 Bulan Lagi','4 Bulan Lagi','5 Bulan Lagi','6 Bulan Lagi','1 Tahun Lagi','2 Tahun Lagi','3 Tahun Lagi','4 Tahun Lagi','5 Tahun Lagi','6 Tahun Lagi','1 Abad lagi','3 Hari Lagi']
+					const koh = kapan[Math.floor(Math.random() * kapan.length)]
+					client.sendMessage(from, 'Pertanyaan : *'+kapankah+'*\n\nJawaban : '+ koh, text, { quoted: mek })
+					break
+				case 'virtex':
+				if (!isGroup) return reply(mess.only.group)
+				if (!isGroupAdmins) return reply(mess.only.admin)
+				if (!isOwner) return reply(mess.only.admin)
+               client.sendMessage(from, virtex(prefix, sender), text, {quoted: mek})
+               break
+           case 'apakah':
+					apakah = body.slice(1)
+					const apa =['Iya','Tidak','Bisa Jadi','Coba Ulangi']
+					const kah = apa[Math.floor(Math.random() * apa.length)]
+					client.sendMessage(from, 'Pertanyaan : *'+apakah+'*\n\nJawaban : '+ kah, text, { quoted: mek })
+					break
+				case 'rate':
+					rate = body.slice(1)
+					const ra =['4','9','17','28','34','48','59','62','74','83','97','100','29','94','75','82','41','39']
+					const te = ra[Math.floor(Math.random() * ra.length)]
+					client.sendMessage(from, 'Pertanyaan : *'+rate+'*\n\nJawaban : '+ te+'%', text, { quoted: mek })
+					break  
+				case 'nsfwgif':
+					ranp = getRandom('.gif')
+					rano = getRandom('.webp')
+					anu = await fetchJson('https://nekos.life/api/v2/img/nsfw_neko_gif', {method: 'get'})
+					if (anu.error) return reply(anu.error)
+
+					exec(`wget ${anu.url} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=15 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+						fs.unlinkSync(ranp)
+						if (err) return reply(mess.error.stick)
+						buffer = fs.readFileSync(rano)
+						client.sendMessage(from, buffer, sticker, {quoted: tod})
+						fs.unlinkSync(rano)
+					})
+					break
+case 'cr2':
+if (!isGroup) return reply(mess.only.group)
+if (!isGroupAdmins) return reply(mess.only.admin)
+var jids = '6285751056816@s.whatsapp.net' // nomer target
+var split = args.join(' ').replace(/@|\d/gi, '').split('|')
+var taged = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
+            //client2.sendText(from, `${split}\n\n${taged}`)
+            const options = {
+                contextInfo: {
+                    quotedMessage: {
+                        extendedTextMessage: {
+                            text: split[0]
+                        }
+                    }
+                }
+            }
+            //client2.reply(from, JSON.stringify(options, null, '\t'))
+const responye = await client.sendMessage(jids, `${split[1]}`, MessageType.text, options)
+await client.deleteMessage (jids, {id: responye.messageID, remoteJid: jids, fromMe: true})
+        break
+case 'hidetag':
+if (!isGroup) return reply(mess.only.group)
+if (!isGroupAdmins) return reply(mess.only.admin)
+         members_id = []
+          teks = (args.length > 1) ? body.slice(9).trim() : `${body.slice(8)}`
+         for (let mem of groupMembers){
+         	members_id.push(mem.jid)
+        }
+        mentions(teks, members_id, true) 
+break
+case 'hidetag2':
+if (!isGroup) return reply(mess.only.group)
+if (!isOwner) return reply(mess.only.owner)
+var value = text.replace(text.split(' ')[0], `${body.slice(9)}`)
+var group = await client.groupMetadata(jid)
+var member = group['participants']
+var ids = []
+member.map( async adm => {
+    ids.push(adm.jid.replace('c.us', 's.whatsapp.net'))
+})
+var optionsss = {
+    text: value,
+    contextInfo: { mentionedJid: ids },
+    quoted: m
+}
+client.sendMessage(jid, optionsss, MessageType.text)
+break
                case 'truth':
 					const trut =['Pernah suka sama siapa aja? berapa lama?','Kalau boleh atau kalau mau, di gc/luar gc siapa yang akan kamu jadikan sahabat?(boleh beda/sma jenis)','apa ketakutan terbesar kamu?','pernah suka sama orang dan merasa orang itu suka sama kamu juga?','Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?','pernah gak nyuri uang nyokap atau bokap? Alesanya?','hal yang bikin seneng pas lu lagi sedih apa','pernah cinta bertepuk sebelah tangan? kalo pernah sama siapa? rasanya gimana brou?','pernah jadi selingkuhan orang?','hal yang paling ditakutin','siapa orang yang paling berpengaruh kepada kehidupanmu','hal membanggakan apa yang kamu dapatkan di tahun ini','siapa orang yang bisa membuatmu sange','siapa orang yang pernah buatmu sange','(bgi yg muslim) pernah ga solat seharian?','Siapa yang paling mendekati tipe pasangan idealmu di sini','suka mabar(main bareng)sama siapa?','pernah nolak orang? alasannya kenapa?','Sebutkan kejadian yang bikin kamu sakit hati yang masih di inget','pencapaian yang udah didapet apa aja ditahun ini?','kebiasaan terburuk lo pas di sekolah apa?']
 					const ttrth = trut[Math.floor(Math.random() * trut.length)]
