@@ -188,6 +188,8 @@ async function starts() {
 
 			mess = {
 				wait: '⌛ Sedang di Prosess ⌛',
+				levelon: '❬ ✔ ❭ *enable leveling*',
+				leveloff: ' ❬ X ❭  *disable leveling*',
 				success: '✔️ Berhasil ✔️',
 				error: {
 					stick: '❌ Gagal, terjadi kesalahan saat mengkonversi gambar ke sticker ❌',
